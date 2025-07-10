@@ -3,6 +3,7 @@ import { Event } from "src/event/entities/event.entity";
 import { User } from "src/user/entities/user.entity";
 import { DataSource } from "typeorm";
 import { Init1750725458642 } from "./migrations/1750725458642-init";
+import { Init1752115550924 } from "./migrations/1752115550924-init";
 
 
 
@@ -18,5 +19,5 @@ export default new DataSource({
         Event,
         User
     ],
-    migrations:[Init1750725458642]
+    migrations:[Init1752115550924]
 })
