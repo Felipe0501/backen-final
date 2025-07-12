@@ -3,13 +3,23 @@ import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class Userdto {
 
-    @IsString()
+    @IsNumber()
     @ApiProperty()
     @IsNotEmpty()
-    readonly email: string;
+    readonly nombreCompleto: string;
 
     @IsString()
     @ApiProperty()
     @IsNotEmpty()
-    readonly password: string;
+    readonly correo: string;
+
+    @IsString()
+    @ApiProperty()
+    @IsNotEmpty()
+    readonly contrasena: string;
+
+    @IsString()
+    @ApiProperty()
+    @IsNotEmpty()
+    readonly pais: string;
 }

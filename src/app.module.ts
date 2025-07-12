@@ -6,8 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { environments } from './enviroments';
 import { DatabaseModule } from './database/database.module';
-import { EventModule } from './event/event.module';
-import { AttendeeModule } from './attendee/attendee.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -25,8 +23,6 @@ import { UserModule } from './user/user.module';
       }),
     }),
     DatabaseModule,
-    EventModule,
-    AttendeeModule,
     UserModule
   ],
   controllers: [AppController],
