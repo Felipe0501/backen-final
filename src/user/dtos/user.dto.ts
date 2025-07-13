@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class Userdto {
 
-    @IsNumber()
+    @IsString()
     @ApiProperty()
     @IsNotEmpty()
     readonly nombreCompleto: string;
