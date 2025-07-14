@@ -21,4 +21,15 @@ export class UserService {
         const users = this.userRepo.create(signUpUserdto);
         return this.userRepo.save(users);
     }
+    async validateUser(correo: string, contrasena: string): Promise<User | null> {
+  const user = await this.userRepo.findOne({ where: { correo } });
+
+  // Si estás usando bcrypt, aquí va el compare
+  if (user && user.contrasena === contrasena) {
+    return user;
+  }
+
+  return null;
 }
+}
+
