@@ -7,6 +7,8 @@ import { Init1752345431467 } from "./migrations/1752345431467-init";
 import { Init21752345749837 } from "./migrations/1752345749837-init2";
 import { OpinionEntity } from "src/opinion/entities/opinion.entity";
 import { Init21752391486475 } from "./migrations/1752391486475-init2";
+import { TokenEntity } from "src/user/entities/token.entity";
+import { Init21752621183156 } from "./migrations/1752621183156-init2";
 
 
 
@@ -19,7 +21,8 @@ export default new DataSource({
     database: "event-db",
     entities:[
         User,
-        OpinionEntity
+        OpinionEntity,
+        TokenEntity
     ],
-    migrations:[Init21752391486475]
+    migrations:[Init21752621183156]
 })

@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { TokenEntity } from './entities/token.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User]),
+  imports:[TypeOrmModule.forFeature([User, TokenEntity]),
     PassportModule,
     JwtModule.register({
       secret: 'clave123', // usa variables de entorno en producción
