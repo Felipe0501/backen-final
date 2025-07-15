@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { promises } from 'dns';
 import { User } from 'src/user/entities/user.entity';
@@ -9,7 +10,7 @@ export class UserService {
     user : User[]=[]
 
     constructor(@InjectRepository(User)
-    private userRepo : Repository<User>){}
+    private userRepo : Repository<User>, private jwtService: JwtService){}
 
 
     async findAll(): Promise<User[]>{
@@ -30,6 +31,14 @@ export class UserService {
   }
 
   return null;
+}
+  async loginUser(correo: string, contrasena: string): Promise<{ access_token: string, ruta: string } | null> {
+  const user = await this.validateUser(correo, contrasena);
+  if (!user) return null;
+
+  const payload = { correo: user.correo, sub: user.id };
+  const token = this.jwtService.sign(payload);
+  return { access_token: token, ruta: '/destinos' };
 }
 }
 

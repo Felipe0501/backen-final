@@ -7,8 +7,7 @@ import * as Joi from 'joi';
 import { environments } from './enviroments';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
-import { OpinionController } from './opinion/controller/opinion.controller';
-import { OpinionService } from './opinion/service/opinion.service';
+
 import { OpinionModule } from './opinion/opinion.module';
 
 @Module({

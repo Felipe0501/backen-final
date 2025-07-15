@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { LoginDto } from 'src/user/dtos/login.dto';
 import { Userdto } from 'src/user/dtos/user.dto';
+import { JwtAuthGuard } from 'src/user/jwt-auth.guard';
 import { UserService } from 'src/user/service/user/user.service';
 
 @Controller('user')
@@ -17,24 +18,46 @@ export class UserController {
     SignUpUser(@Body() signUpUserdto: Userdto){
         return this.userService.signUpUser(signUpUserdto);
     }
-     // 🔐 Nuevo endpoint de login
+     // endpoint  login
+  // @Post('login')
+  // async login(@Body() loginDto: LoginDto) {
+  // const user = await this.userService.validateUser(loginDto.correo, loginDto.contrasena);
+
+  //   if (!user) {
+  //     throw new UnauthorizedException('Credenciales incorrectas');
+  //   }
+
+  //   // Puedes devolver solo los datos necesarios o token si luego agregas JWT
+  //   return {
+  //     message: 'Acceso exitoso',
+  //     user: {
+  //       id: user.id,
+  //       correo: user.correo,
+  //       contrasena: user.contrasena
+  //     }
+  //   };
+  // }
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-  const user = await this.userService.validateUser(loginDto.correo, loginDto.contrasena);
+    const token = await this.userService.loginUser(
+      loginDto.correo,
+      loginDto.contrasena,
+    );
 
-    if (!user) {
-      throw new UnauthorizedException('Credenciales incorrectas');
+    if (!token) {
+      throw new UnauthorizedException('Credenciales inválidas');
     }
 
-    // Puedes devolver solo los datos necesarios o token si luego agregas JWT
+    return token; // { access_token: '...' }
+  }
+  @Get('perfil')
+  @UseGuards(JwtAuthGuard)
+  getPerfil(@Request() req) {
     return {
-      message: 'Acceso exitoso',
-      user: {
-        id: user.id,
-        correo: user.correo,
-        contrasena: user.contrasena
-      }
+      mensaje: 'Ruta protegida ✅',
+      usuario: req.user, // Viene del payload del token
     };
   }
+
 }
 
